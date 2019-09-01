@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         btScan = findViewById(R.id.btScan);
         accessPoints = new ArrayList<>();
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-//        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, accessPoints);
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, android.R.id.text1, accessPoints) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -78,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             scanResults = wifiManager.getScanResults();
             unregisterReceiver(this);
-
-            Log.d("scan: ", "" + scanResults.size());
 
             for (ScanResult result : scanResults) {
                 accessPoints.add(new AccessPoint(result.SSID, result.level));
