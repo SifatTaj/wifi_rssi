@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private WifiManager wifiManager;
     private ListView lvScanResults;
     private Button btScan;
-    private Button btAddActivity
     private List<ScanResult> scanResults;
     private ArrayList<AccessPoint> accessPoints;
     private ArrayAdapter adapter;
@@ -49,12 +49,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btAddActivity:
+                Intent i = new Intent(MainActivity.this, AddFingerprintActivity.class);
+                startActivity(i);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lvScanResults = findViewById(R.id.lvScanResults);
         btScan = findViewById(R.id.btScan);
-        btAddActivity = findViewById(R.id.btAddActivity);
         accessPoints = new ArrayList<>();
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, android.R.id.text1, accessPoints) {
@@ -78,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         scan();
-
-        btAddActivity.setOnClickListener();
     }
 
     BroadcastReceiver rssiReceiver = new BroadcastReceiver() {
