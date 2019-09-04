@@ -10,6 +10,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -36,9 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private WifiManager wifiManager;
     private ListView lvScanResults;
     private Button btScan;
+    private Button btAddActivity
     private List<ScanResult> scanResults;
     private ArrayList<AccessPoint> accessPoints;
     private ArrayAdapter adapter;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         lvScanResults = findViewById(R.id.lvScanResults);
         btScan = findViewById(R.id.btScan);
+        btAddActivity = findViewById(R.id.btAddActivity);
         accessPoints = new ArrayList<>();
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, android.R.id.text1, accessPoints) {
@@ -69,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         scan();
+
+        btAddActivity.setOnClickListener();
     }
 
     BroadcastReceiver rssiReceiver = new BroadcastReceiver() {
