@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wifirssi.Model.AccessPoint;
+
 import java.util.ArrayList;
 import java.util.List;
-
-class AccessPoint {
-    String ssid;
-    int rssi;
-
-    public AccessPoint(String ssid, int rssi) {
-        this.ssid = ssid;
-        this.rssi = rssi;
-    }
-}
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvScanResults;
     private Button btScan;
     private List<ScanResult> scanResults;
-    public ArrayList<AccessPoint> accessPoints;
+    private ArrayList<AccessPoint> accessPoints;
     private ArrayAdapter adapter;
 
     @Override
@@ -98,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(this);
 
             for (ScanResult result : scanResults) {
-                accessPoints.add(new AccessPoint(result.SSID, result.level));
+                accessPoints.add(new AccessPoint(result.SSID, result.level, result.BSSID, result.frequency));
                 adapter.notifyDataSetChanged();
             }
 
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void scan() {
+    private void scan() {
         if (wifiManager.isWifiEnabled()) {
             accessPoints.clear();
             registerReceiver(rssiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
