@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvScanResults;
     private Button btScan;
     private List<ScanResult> scanResults;
-    private ArrayList<AccessPoint> accessPoints;
+    public ArrayList<AccessPoint> accessPoints;
     private ArrayAdapter adapter;
 
     @Override
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void scan() {
+    public void scan() {
         if (wifiManager.isWifiEnabled()) {
             accessPoints.clear();
             registerReceiver(rssiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
