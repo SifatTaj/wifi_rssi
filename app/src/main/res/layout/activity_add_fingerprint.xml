@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -190,7 +190,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test01"
@@ -198,7 +198,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test01"
@@ -206,7 +206,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test01"
@@ -214,7 +214,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test01"
@@ -222,7 +222,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -236,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -245,7 +245,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test02"
@@ -253,7 +253,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test02"
@@ -261,7 +261,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test02"
@@ -269,7 +269,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test02"
@@ -277,7 +277,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -291,7 +291,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -300,7 +300,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test03"
@@ -308,7 +308,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test03"
@@ -316,7 +316,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test03"
@@ -324,7 +324,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test03"
@@ -332,7 +332,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -346,7 +346,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -355,7 +355,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test04"
@@ -363,7 +363,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test04"
@@ -371,7 +371,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test04"
@@ -379,7 +379,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test04"
@@ -387,7 +387,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -401,7 +401,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -410,7 +410,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test05"
@@ -418,7 +418,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test05"
@@ -426,7 +426,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test05"
@@ -434,7 +434,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test05"
@@ -442,7 +442,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -456,7 +456,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -465,7 +465,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test06"
@@ -473,7 +473,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test06"
@@ -481,7 +481,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test06"
@@ -489,7 +489,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test06"
@@ -497,7 +497,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -511,7 +511,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -520,7 +520,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test07"
@@ -528,7 +528,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test07"
@@ -536,7 +536,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test07"
@@ -544,7 +544,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test07"
@@ -552,7 +552,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -566,7 +566,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -575,7 +575,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test08"
@@ -583,7 +583,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test08"
@@ -591,7 +591,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test08"
@@ -599,7 +599,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test08"
@@ -607,7 +607,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -621,7 +621,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -630,7 +630,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test09"
@@ -638,7 +638,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test09"
@@ -646,7 +646,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test09"
@@ -654,7 +654,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test09"
@@ -662,7 +662,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -676,7 +676,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Test No."
+                android:text=""
                 android:textAlignment="center" />
 
             <TextView
@@ -685,7 +685,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP0Test10"
@@ -693,7 +693,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP1Test10"
@@ -701,7 +701,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP2Test10"
@@ -709,7 +709,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvAP3Test10"
@@ -717,7 +717,7 @@
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
         <LinearLayout
@@ -741,7 +741,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="RP"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvMeanAP0"
@@ -750,7 +750,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="AP0"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvMeanAP1"
@@ -759,7 +759,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="AP1"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvMeanAP2"
@@ -768,7 +768,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="AP2"/>
+                android:text=""/>
 
             <TextView
                 android:id="@+id/tvMeanAP3"
@@ -777,7 +777,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="AP3"/>
+                android:text=""/>
 
         </LinearLayout>
 
