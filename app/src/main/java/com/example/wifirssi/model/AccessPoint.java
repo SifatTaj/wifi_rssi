@@ -15,6 +15,10 @@ public class AccessPoint {
         return ssid;
     }
 
+    public void setRssi(int rssi) {
+        this.rssi = rssi;
+    }
+
     public String getMac() {
         return mac;
     }
