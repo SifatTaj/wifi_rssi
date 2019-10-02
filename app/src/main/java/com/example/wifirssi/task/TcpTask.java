@@ -1,9 +1,7 @@
-package com.example.wifirssi.tasks;
+package com.example.wifirssi.task;
 
 import android.os.AsyncTask;
 import android.widget.TextView;
-
-import com.example.wifirssi.LocateUserActivity;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

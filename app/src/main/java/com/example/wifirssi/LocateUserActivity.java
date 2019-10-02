@@ -10,20 +10,13 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wifirssi.model.AccessPoint;
-import com.example.wifirssi.tasks.TcpTask;
+import com.example.wifirssi.task.TcpTask;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +42,6 @@ public class LocateUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scan();
-//                new TcpTask(tvLocation).execute();
             }
         });
     }
