@@ -64,17 +64,16 @@ public class LocateUserActivity extends AppCompatActivity {
 
             for (ScanResult result : scanResults) {
                 for(AccessPoint ap : selectedAccessPoints) {
-                    if(ap.getMac().equals(result.BSSID)) {
+                    if(ap.getMac().equals(result.BSSID))
                         ap.setRssi(result.level);
-                    }
                 }
             }
 
-            for(AccessPoint ap : selectedAccessPoints) {
+            for(AccessPoint ap : selectedAccessPoints)
                 observedRssValue = observedRssValue + ap.getRssi() + "_";
-            }
 
             Toast.makeText(getApplicationContext(), observedRssValue, Toast.LENGTH_SHORT).show();
+            new TcpTask(tvLocation).execute(observedRssValue);
         }
     };
 

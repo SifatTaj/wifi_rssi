@@ -3,12 +3,14 @@ package com.example.wifirssi.tasks;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.example.wifirssi.LocateUserActivity;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class TcpTask extends AsyncTask<Void, Void, Void> {
+public class TcpTask extends AsyncTask<String, Void, Void> {
 
     TextView tvLocation;
     String location = "Waiting for response...";
@@ -52,8 +54,9 @@ public class TcpTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
-        location = requestLocation("-35_-60_-56_-56_");
+    protected Void doInBackground(String... params) {
+        String observedRSSValue = params[0];
+        location = requestLocation(observedRSSValue);
         return null;
     }
 
