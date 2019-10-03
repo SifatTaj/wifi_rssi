@@ -16,12 +16,14 @@ import android.widget.Toast;
 
 import com.example.wifirssi.model.AccessPoint;
 import com.example.wifirssi.task.TcpTask;
+import com.example.wifirssi.view.MapView;
 
 import java.util.List;
 import java.util.Set;
 
 public class LocateUserActivity extends AppCompatActivity {
 
+    MapView mapView;
     Button btLocateUser;
     TextView tvLocation;
     Set<AccessPoint> selectedAccessPoints;
@@ -37,11 +39,14 @@ public class LocateUserActivity extends AppCompatActivity {
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         btLocateUser = findViewById(R.id.btLocateUser);
         tvLocation = findViewById(R.id.tvLocation);
+        mapView = findViewById(R.id.mapView);
 
         btLocateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scan();
+                mapView.setLocation(2, 3);
+                mapView.drawNavigation(2, 3, 3,3);
             }
         });
     }
