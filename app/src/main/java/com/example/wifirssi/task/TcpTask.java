@@ -32,16 +32,16 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             String myLocation;
 
             Socket socket = new Socket(address, 5000);
-            ObjectInputStream dis = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream dos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
             String request = service + "/" + place + "/" + observedRSSValues;
             Log.d("TCPRequest", "requestLocation: " + request);
 
             try {
-                dos.writeUTF(request);
-                dos.flush();
-                myLocation = dis.readUTF();
+                oos.writeUTF(request);
+                oos.flush();
+                myLocation = ois.readUTF();
                 return myLocation;
 
             } catch (Exception e) {
