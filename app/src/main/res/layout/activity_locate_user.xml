@@ -7,28 +7,54 @@
     tools:context=".LocateUserActivity">
 
     <LinearLayout
+        android:paddingHorizontal="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvLocation"
-            android:text=" User location will appear here"
+            android:text="Enter place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etPlace"
+            android:text="home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
         <com.example.wifirssi.view.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="350dp" />
 
+        <TextView
+            android:id="@+id/tvLocation"
+            android:text="User location will appear here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btLocateUser"
+    <LinearLayout
         android:layout_alignParentBottom="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Locate"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btLocateUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Locate"/>
+
+        <Button
+            android:id="@+id/btLoadMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Load Map"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

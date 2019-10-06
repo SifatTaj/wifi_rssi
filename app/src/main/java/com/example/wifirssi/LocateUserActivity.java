@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,10 @@ import java.util.Set;
 
 public class LocateUserActivity extends AppCompatActivity {
 
-    MapView mapView;
+    public static MapView mapView;
     Button btLocateUser;
-    TextView tvLocation;
+    public static TextView tvLocation;
+    EditText etPlace;
     Set<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
 
@@ -40,13 +42,14 @@ public class LocateUserActivity extends AppCompatActivity {
         btLocateUser = findViewById(R.id.btLocateUser);
         tvLocation = findViewById(R.id.tvLocation);
         mapView = findViewById(R.id.mapView);
+        etPlace = findViewById(R.id.etPlace);
 
         btLocateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scan();
-                mapView.setLocation(2, 3);
-                mapView.drawNavigation(2, 3, 3,3);
+//                mapView.setLocation(2, 3);
+//                mapView.drawNavigation(2, 3, 3,3);
             }
         });
     }
@@ -70,7 +73,7 @@ public class LocateUserActivity extends AppCompatActivity {
                 observedRssValue = observedRssValue + ap.getRssi() + "_";
 
             Toast.makeText(getApplicationContext(), observedRssValue, Toast.LENGTH_SHORT).show();
-            new TcpTask(tvLocation).execute(observedRssValue);
+            new TcpTask(etPlace.getText().toString(), "location").execute(observedRssValue);
         }
     };
 

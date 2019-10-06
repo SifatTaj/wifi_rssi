@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 public class MapView extends View {
 
     Paint paint;
+    int scale = 2;
     int x = 99;
     int y = 99;
     int x0 = 99;
@@ -48,8 +49,8 @@ public class MapView extends View {
     }
 
     public void setLocation(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = x * scale;
+        this.y = y * scale;
         postInvalidate();
     }
 
@@ -63,7 +64,7 @@ public class MapView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        float unit = getWidth() / 5.0f - 15;
+        float unit = getWidth() / 10.0f - 8;
 
         canvas.save();
         canvas.translate(0, getHeight());
@@ -72,8 +73,8 @@ public class MapView extends View {
         paint.setStrokeWidth(10);
         canvas.drawLine(30 + (unit * x0), 30 + (unit * y0), 30 + (unit * x1), 30 + (unit * y1), paint);
 
-        for (int j = 0; j < 5; j++)
-            for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 9; j++)
+            for (int i = 0; i < 11; i++) {
                 dotColor = (i == x & j == y) ? Color.GREEN : Color.GRAY;
                 paint.setColor(dotColor);
                 canvas.drawCircle(30 + (unit * i), 30 + (unit * j), 20, paint);
