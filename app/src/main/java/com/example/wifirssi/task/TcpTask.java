@@ -11,6 +11,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class TcpTask extends AsyncTask<String, Void, Void> {
@@ -31,14 +32,15 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             String myLocation;
 
             Socket socket = new Socket(address, 5000);
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            ObjectInputStream dis = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream dos = new ObjectOutputStream(socket.getOutputStream());
 
             String request = service + "/" + place + "/" + observedRSSValues;
             Log.d("TCPRequest", "requestLocation: " + request);
 
             try {
                 dos.writeUTF(request);
+                dos.flush();
                 myLocation = dis.readUTF();
                 return myLocation;
 
@@ -84,8 +86,12 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         super.onPostExecute(aVoid);
         LocateUserActivity.tvLocation.setText(location);
         String[] locationCoordinates = location.split(" ");
-        int x = (int) Math.round(Double.parseDouble(locationCoordinates[0]));
-        int y = (int) Math.round(Double.parseDouble(locationCoordinates[1]));
-        LocateUserActivity.mapView.setLocation(x,y);
+        try {
+            int x = (int) Math.round(Double.parseDouble(locationCoordinates[0]));
+            int y = (int) Math.round(Double.parseDouble(locationCoordinates[1]));
+            LocateUserActivity.mapView.setLocation(x, y);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
     }
 }
