@@ -19,8 +19,8 @@ public class MapView extends View {
     int height = 0;
     int width = 0;
     int[][] walls;
-    int x = 99;
-    int y = 99;
+    float x = 99;
+    float y = 99;
     int x0 = 99;
     int y0 = 99;
     int x1 = 99;
@@ -53,9 +53,9 @@ public class MapView extends View {
         dotColor = Color.GRAY;
     }
 
-    public void setLocation(int x, int y) {
-        this.x = x * scale;
-        this.y = y * scale;
+    public void setLocation(float x, float y) {
+        this.x = (float) Math.round((x * scale));
+        this.y = (float) Math.round((y * scale));
         postInvalidate();
     }
 
@@ -85,17 +85,19 @@ public class MapView extends View {
         paint.setStrokeWidth(10);
         canvas.drawLine(30 + (unit * x0), 30 + (unit * y0), 30 + (unit * x1), 30 + (unit * y1), paint);
 
+        dotColor = Color.GRAY;
         for (int j = 0; j < height; j++)
             for (int i = 0; i < width; i++) {
-                dotColor = (i == x & j == y) ? Color.GREEN : Color.GRAY;
                 paint.setColor(dotColor);
                 canvas.drawCircle(30 + (unit * i), 30 + (unit * j), 20, paint);
             }
 
+        paint.setColor(Color.GREEN);
+        canvas.drawCircle(30 + (unit * x), 30 + (unit * y), 20, paint);
+
         if (walls != null) {
             for (int[] wall : walls) {
                 paint.setColor(Color.GRAY);
-//                canvas.drawCircle(30 + (unit * wall[0]), 30 + (unit * wall[1]), 20, paint);
                 float top = 30 + (unit * wall[1]) - 40;
                 float left = 30 + (unit * wall[0]) - 40;
                 float right = left + 120;

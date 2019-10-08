@@ -99,8 +99,8 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             LocateUserActivity.tvLocation.setText(location);
             String[] locationCoordinates = location.split(" ");
             try {
-                int x = (int) Math.round(Double.parseDouble(locationCoordinates[0]));
-                int y = (int) Math.round(Double.parseDouble(locationCoordinates[1]));
+                float x = (Float.parseFloat(locationCoordinates[0]));
+                float y = (Float.parseFloat(locationCoordinates[1]));
                 LocateUserActivity.mapView.setLocation(x, y);
             } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
