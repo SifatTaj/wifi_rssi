@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wifirssi.model.AccessPoint;
+import model.AccessPoint;
 import com.example.wifirssi.task.TcpTask;
 import com.example.wifirssi.view.MapView;
 
@@ -26,6 +26,7 @@ public class LocateUserActivity extends AppCompatActivity {
 
     public static MapView mapView;
     Button btLocateUser;
+    Button btLoadMap;
     public static TextView tvLocation;
     EditText etPlace;
     Set<AccessPoint> selectedAccessPoints;
@@ -40,6 +41,7 @@ public class LocateUserActivity extends AppCompatActivity {
         selectedAccessPoints = MainActivity.selectedAccessPoints;
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         btLocateUser = findViewById(R.id.btLocateUser);
+        btLoadMap = findViewById(R.id.btLoadMap);
         tvLocation = findViewById(R.id.tvLocation);
         mapView = findViewById(R.id.mapView);
         etPlace = findViewById(R.id.etPlace);
@@ -50,6 +52,13 @@ public class LocateUserActivity extends AppCompatActivity {
                 scan();
 //                mapView.setLocation(2, 3);
 //                mapView.drawNavigation(2, 3, 3,3);
+            }
+        });
+
+        btLoadMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new TcpTask("home","loadmap").execute();
             }
         });
     }

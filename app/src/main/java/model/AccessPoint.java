@@ -1,4 +1,4 @@
-package com.example.wifirssi.model;
+package model;
 
 public class AccessPoint {
     private String ssid;

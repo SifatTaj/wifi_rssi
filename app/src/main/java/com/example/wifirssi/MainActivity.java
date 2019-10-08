@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wifirssi.model.AccessPoint;
+import model.AccessPoint;
 
 import java.util.ArrayList;
 import java.util.HashSet;

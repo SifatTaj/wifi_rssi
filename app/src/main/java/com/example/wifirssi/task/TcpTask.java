@@ -2,13 +2,10 @@ package com.example.wifirssi.task;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.example.wifirssi.LocateUserActivity;
-import com.example.wifirssi.model.FloorLayout;
+import model.FloorLayout;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,6 +17,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
     String service;
     String location = "Waiting for response...";
     String address = "192.168.0.112";
+    FloorLayout floorLayout;
 
     public TcpTask(String place, String service) {
         this.place = place;
@@ -62,6 +60,14 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         try {
             Socket socket = new Socket(address, 5000);
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            String request = service + "/" + place;
+            Log.d("TCPRequest", "requestMap: " + request);
+            oos.writeUTF(request);
+            oos.flush();
+            floorLayout = (FloorLayout) ois.readObject();
+            return floorLayout;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,28 +76,37 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
-        LocateUserActivity.tvLocation.setText(location);
+        if (service.equalsIgnoreCase("location")) {
+            LocateUserActivity.tvLocation.setText(location);
+        }
     }
 
     @Override
     protected Void doInBackground(String... params) {
-        String observedRSSValue = params[0];
-        location = requestLocation(observedRSSValue);
+        if (service.equalsIgnoreCase("location")) {
+            String observedRSSValue = params[0];
+            location = requestLocation(observedRSSValue);
+        }
+        else if (service.equalsIgnoreCase("loadmap"))
+            floorLayout = requestMap();
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        LocateUserActivity.tvLocation.setText(location);
-        String[] locationCoordinates = location.split(" ");
-        try {
-            int x = (int) Math.round(Double.parseDouble(locationCoordinates[0]));
-            int y = (int) Math.round(Double.parseDouble(locationCoordinates[1]));
-            LocateUserActivity.mapView.setLocation(x, y);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+
+        if (service.equalsIgnoreCase("location")) {
+            LocateUserActivity.tvLocation.setText(location);
+            String[] locationCoordinates = location.split(" ");
+            try {
+                int x = (int) Math.round(Double.parseDouble(locationCoordinates[0]));
+                int y = (int) Math.round(Double.parseDouble(locationCoordinates[1]));
+                LocateUserActivity.mapView.setLocation(x, y);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
         }
+        else if (service.equalsIgnoreCase("loadmap"))
+            LocateUserActivity.mapView.generateMap(floorLayout);
     }
 }
