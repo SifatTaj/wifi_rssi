@@ -10,7 +10,12 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
-import model.FloorLayout;
+import com.example.wifirssi.model.FloorLayout;
+import com.example.wifirssi.model.Node;
+import com.example.wifirssi.model.Path;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapView extends View {
 
@@ -26,6 +31,7 @@ public class MapView extends View {
     int x1 = 99;
     int y1 = 99;
     int dotColor;
+    List<Node> pathNodes = new ArrayList<>();
 
     public MapView(Context context) {
         super(context);
@@ -59,11 +65,8 @@ public class MapView extends View {
         postInvalidate();
     }
 
-    public void drawNavigation(int x0, int y0, int x1, int y1) {
-        this.x0 = x0;
-        this.y0 = y0;
-        this.x1 = x1;
-        this.y1 = y1;
+    public void drawNavigation(Path path) {
+        pathNodes = path.getNodes();
         postInvalidate();
     }
 
@@ -83,7 +86,9 @@ public class MapView extends View {
         canvas.scale(1, -1);
 
         paint.setStrokeWidth(10);
-        canvas.drawLine(30 + (unit * x0), 30 + (unit * y0), 30 + (unit * x1), 30 + (unit * y1), paint);
+        for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
+            canvas.drawLine(30 + (unit * pathNodes.get(i).getX()), 30 + (unit * pathNodes.get(i).getY()), 30 + (unit * pathNodes.get(i + 1).getX()), 30 + (unit * pathNodes.get(i + 1).getY()), paint);
+        }
 
         dotColor = Color.GRAY;
         for (int j = 0; j < height; j++)

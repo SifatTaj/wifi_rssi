@@ -65,6 +65,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:text="8_8_3"
                 android:id="@+id/etDest"
                 android:layout_weight="4"
                 android:layout_width="0dp"

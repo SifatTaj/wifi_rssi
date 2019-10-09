@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.wifirssi.R;
 
-import model.AccessPoint;
+import com.example.wifirssi.model.AccessPoint;
 
 import java.util.ArrayList;
 import java.util.HashSet;

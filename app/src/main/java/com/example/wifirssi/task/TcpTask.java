@@ -4,7 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.wifirssi.activity.LocateUserActivity;
-import model.FloorLayout;
+import com.example.wifirssi.model.Path;
+import com.google.gson.Gson;
+
+import com.example.wifirssi.model.FloorLayout;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,6 +22,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
     String address = "192.168.0.112";
     int floor;
     FloorLayout floorLayout;
+    Path path;
 
     public TcpTask(String place, int floor, String service) {
         this.place = place;
@@ -67,9 +71,28 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             Log.d("TCPRequest", "requestMap: " + request);
             oos.writeUTF(request);
             oos.flush();
-            floorLayout = (FloorLayout) ois.readObject();
+            String json = (String) ois.readObject();
+            floorLayout = new Gson().fromJson(json, FloorLayout.class);
             return floorLayout;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Path requestNavigation(String navigation) {
+        try {
+            Socket socket = new Socket(address, 5000);
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            String request = service + "/" + place + "/" + floor + "/" + navigation;
+            Log.d("TCPRequest", "requestMap: " + request);
+            oos.writeUTF(request);
+            oos.flush();
+            String json = (String) ois.readObject();
+            path = new Gson().fromJson(json, Path.class);
+            return path;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,7 +115,8 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         else if (service.equalsIgnoreCase("loadmap"))
             floorLayout = requestMap();
         else if (service.equalsIgnoreCase("navigate")) {
-
+            String navigation = params[0];
+            requestNavigation(navigation);
         }
         return null;
     }
@@ -114,6 +138,10 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         else if (service.equalsIgnoreCase("loadmap")) {
             LocateUserActivity.mapView.generateMap(floorLayout);
             LocateUserActivity.tvMapDescription.setText("Place: " + floorLayout.getPlace() + "\nFloor: " + floorLayout.getFloor());
+        }
+
+        else if (service.equalsIgnoreCase("navigate")) {
+            LocateUserActivity.mapView.drawNavigation(path);
         }
     }
 }

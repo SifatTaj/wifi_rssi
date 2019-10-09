@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import model.AccessPoint;
+import com.example.wifirssi.model.AccessPoint;
 
 import com.example.wifirssi.R;
 import com.example.wifirssi.task.TcpTask;
@@ -34,6 +34,7 @@ public class LocateUserActivity extends AppCompatActivity {
     WifiManager wifiManager;
 
     String place;
+    String currentLocation = "1_1_3";
     int floor;
 
     @Override
@@ -77,7 +78,8 @@ public class LocateUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 place = etPlace.getText().toString();
                 floor = Integer.parseInt(etFloor.getText().toString());
-
+                String navigation = currentLocation + "_" + etDest.getText().toString();
+                new TcpTask(place, floor,"navigate").execute(navigation);
             }
         });
     }

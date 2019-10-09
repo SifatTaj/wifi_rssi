@@ -1,9 +1,6 @@
-package model;
+package com.example.wifirssi.model;
 
-import java.io.Serializable;
-
-public class FloorLayout implements Serializable {
-    private static final long serialVersionUID = 898557456258L;
+public class FloorLayout {
     private final String place;
     private final int floor;
     private final int height;
@@ -18,10 +15,6 @@ public class FloorLayout implements Serializable {
     }
 
     private final int[][] walls;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getPlace() {
         return place;
