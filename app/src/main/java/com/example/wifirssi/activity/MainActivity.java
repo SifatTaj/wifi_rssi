@@ -1,4 +1,4 @@
-package com.example.wifirssi;
+package com.example.wifirssi.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.wifirssi.R;
 
 import model.AccessPoint;
 

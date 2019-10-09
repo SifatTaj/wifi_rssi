@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocateUserActivity">
+    tools:context=".activity.LocateUserActivity">
 
     <LinearLayout
         android:paddingHorizontal="5dp"
@@ -13,13 +13,36 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Enter place"
+            android:text="Enter place and floor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/etPlace"
-            android:text="home"
+        <LinearLayout
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:paddingRight="10dp"
+                android:layout_weight="3"
+                android:id="@+id/etPlace"
+                android:text="home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etFloor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:inputType="numberDecimal"
+                android:text="3" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvMapDescription"
+            android:text="Map Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -35,23 +58,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:weightSum="5"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etDest"
+                android:layout_weight="4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btNavigate"
+                android:layout_weight="1"
+                android:text="navigate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
+        android:weightSum="2"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btLocateUser"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Locate"/>
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btLoadMap"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Load Map"/>
 

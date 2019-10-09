@@ -1,4 +1,4 @@
-package com.example.wifirssi;
+package com.example.wifirssi.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import model.AccessPoint;
+
+import com.example.wifirssi.R;
 import com.example.wifirssi.task.TcpTask;
 import com.example.wifirssi.view.MapView;
 
@@ -25,12 +27,14 @@ import java.util.Set;
 public class LocateUserActivity extends AppCompatActivity {
 
     public static MapView mapView;
-    Button btLocateUser;
-    Button btLoadMap;
-    public static TextView tvLocation;
-    EditText etPlace;
+    Button btLocateUser, btLoadMap, btNavigate;
+    public static TextView tvLocation, tvMapDescription;
+    EditText etPlace, etFloor, etDest;
     Set<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
+
+    String place;
+    int floor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +46,38 @@ public class LocateUserActivity extends AppCompatActivity {
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         btLocateUser = findViewById(R.id.btLocateUser);
         btLoadMap = findViewById(R.id.btLoadMap);
+        btNavigate = findViewById(R.id.btNavigate);
         tvLocation = findViewById(R.id.tvLocation);
+        tvMapDescription = findViewById(R.id.tvMapDescription);
         mapView = findViewById(R.id.mapView);
         etPlace = findViewById(R.id.etPlace);
+        etFloor = findViewById(R.id.etFloor);
+        etDest = findViewById(R.id.etDest);
 
         btLocateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                place = etPlace.getText().toString();
+                floor = Integer.parseInt(etFloor.getText().toString());
                 scan();
-//                mapView.setLocation(2, 3);
-//                mapView.drawNavigation(2, 3, 3,3);
             }
         });
 
         btLoadMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new TcpTask("home","loadmap").execute();
+                place = etPlace.getText().toString();
+                floor = Integer.parseInt(etFloor.getText().toString());
+                new TcpTask(place, floor,"loadmap").execute();
+            }
+        });
+
+        btNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                place = etPlace.getText().toString();
+                floor = Integer.parseInt(etFloor.getText().toString());
+
             }
         });
     }
@@ -81,8 +100,11 @@ public class LocateUserActivity extends AppCompatActivity {
             for(AccessPoint ap : selectedAccessPoints)
                 observedRssValue = observedRssValue + ap.getRssi() + "_";
 
+            if (observedRssValue.equalsIgnoreCase(""))
+                observedRssValue = "-44_-62_-73_-60_";
+
             Toast.makeText(getApplicationContext(), observedRssValue, Toast.LENGTH_SHORT).show();
-            new TcpTask(etPlace.getText().toString(), "location").execute(observedRssValue);
+            new TcpTask(place, floor, "location").execute(observedRssValue);
         }
     };
 
