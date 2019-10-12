@@ -103,10 +103,10 @@ public class MapView extends View {
         if (walls != null) {
             for (int[] wall : walls) {
                 paint.setColor(Color.GRAY);
-                float top = 30 + (unit * wall[1]) - 40;
-                float left = 30 + (unit * wall[0]) - 40;
-                float right = left + 120;
-                float bottom = top + 120;
+                float top = 30 + (unit * wall[1]) - 50;
+                float left = 30 + (unit * wall[0]) - 50;
+                float right = left + 100;
+                float bottom = top + 100;
                 canvas.drawRect(left, top, right, bottom, paint);
             }
         }

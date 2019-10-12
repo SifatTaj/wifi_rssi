@@ -12,12 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wifirssi.model.AccessPoint;
 
 import com.example.wifirssi.R;
+import com.example.wifirssi.task.NdnTask;
 import com.example.wifirssi.task.TcpTask;
 import com.example.wifirssi.view.MapView;
 
@@ -30,12 +33,17 @@ public class LocateUserActivity extends AppCompatActivity {
     Button btLocateUser, btLoadMap, btNavigate;
     public static TextView tvLocation, tvMapDescription;
     EditText etPlace, etFloor, etDest;
+    RadioGroup rgArchitecture;
+    RadioButton rbChoice;
+
+
     Set<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
+    boolean tcpSelected = true;
 
     String place;
-    String currentLocation = "1_1_3";
-    int floor;
+    public static String currentLocation = "1_1_3";
+    public static int floor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,7 @@ public class LocateUserActivity extends AppCompatActivity {
         etPlace = findViewById(R.id.etPlace);
         etFloor = findViewById(R.id.etFloor);
         etDest = findViewById(R.id.etDest);
+        rgArchitecture = findViewById(R.id.rgArchitecture);
 
         btLocateUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +93,13 @@ public class LocateUserActivity extends AppCompatActivity {
         });
     }
 
+    public void selectArchitecture(View view) {
+        int selectedRadioId = rgArchitecture.getCheckedRadioButtonId();
+        rbChoice = findViewById(selectedRadioId);
+        tcpSelected = R.id.rbTcp == selectedRadioId;
+        Toast.makeText(this, rbChoice.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
+    }
+
     BroadcastReceiver rssiReceiver = new BroadcastReceiver() {
 
         @Override
@@ -106,7 +122,11 @@ public class LocateUserActivity extends AppCompatActivity {
                 observedRssValue = "-44_-62_-73_-60_";
 
             Toast.makeText(getApplicationContext(), observedRssValue, Toast.LENGTH_SHORT).show();
-            new TcpTask(place, floor, "location").execute(observedRssValue);
+            if (tcpSelected) {
+                new TcpTask(place, floor, "location").execute(observedRssValue);
+            } else {
+                new NdnTask().execute(observedRssValue);
+            }
         }
     };
 

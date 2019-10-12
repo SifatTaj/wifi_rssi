@@ -1,16 +1,20 @@
 package com.example.wifirssi.model;
 
 public class FloorLayout {
-    private final String place;
-    private final int floor;
-    private final int height;
-    private final int width;
+    private String place;
+    private int floor;
+    private int height;
+    private int width;
+    private int exitx;
+    private int exity;
 
-    public FloorLayout(String place, int floor, int height, int width, int[][] walls) {
+    public FloorLayout(String place, int floor, int height, int width, int exitx, int exity, int[][] walls) {
         this.place = place;
         this.floor = floor;
         this.height = height;
         this.width = width;
+        this.exitx = exitx;
+        this.exity = exity;
         this.walls = walls;
     }
 
@@ -34,5 +38,13 @@ public class FloorLayout {
 
     public int[][] getWalls() {
         return walls;
+    }
+
+    public int getExitx() {
+        return exitx;
+    }
+
+    public int getExity() {
+        return exity;
     }
 }

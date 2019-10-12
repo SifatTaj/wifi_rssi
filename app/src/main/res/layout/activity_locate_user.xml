@@ -83,25 +83,57 @@
     </LinearLayout>
 
     <LinearLayout
-        android:weightSum="2"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/btLocateUser"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Locate"/>
+        <RadioGroup
+            android:id="@+id/rgArchitecture"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/btLoadMap"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Load Map"/>
+            <RadioButton
+                android:id="@+id/rbTcp"
+                android:checked="true"
+                android:paddingRight="20dp"
+                android:text="TCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="selectArchitecture" />
+
+            <RadioButton
+                android:id="@+id/rbNdn"
+                android:text="NDN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="selectArchitecture" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btLocateUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Locate"/>
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btLoadMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Load Map"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
