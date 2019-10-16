@@ -6,6 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -30,7 +34,7 @@ import java.util.Set;
 public class LocateUserActivity extends AppCompatActivity {
 
     public static MapView mapView;
-    Button btLocateUser, btLoadMap, btNavigate;
+    Button btLocateUser, btLoadMap, btNavigate, btDetectFloor;
     public static TextView tvLocation, tvMapDescription;
     EditText etPlace, etFloor, etDest;
     RadioGroup rgArchitecture;
@@ -40,6 +44,9 @@ public class LocateUserActivity extends AppCompatActivity {
     Set<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
     boolean tcpSelected = true;
+
+    SensorManager sensorManager;
+    Sensor barometerSensor;
 
     String place;
     public static String currentLocation = "1_1_3";
@@ -53,8 +60,11 @@ public class LocateUserActivity extends AppCompatActivity {
 
         selectedAccessPoints = MainActivity.selectedAccessPoints;
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
+        barometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         btLocateUser = findViewById(R.id.btLocateUser);
         btLoadMap = findViewById(R.id.btLoadMap);
+        btDetectFloor = findViewById(R.id.btDetectFloor);
         btNavigate = findViewById(R.id.btNavigate);
         tvLocation = findViewById(R.id.tvLocation);
         tvMapDescription = findViewById(R.id.tvMapDescription);
@@ -99,6 +109,13 @@ public class LocateUserActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btDetectFloor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detectPressure();
+            }
+        });
     }
 
     public void selectArchitecture(View view) {
@@ -137,6 +154,23 @@ public class LocateUserActivity extends AppCompatActivity {
             }
         }
     };
+
+    SensorEventListener sensorEventListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            float[] values = sensorEvent.values;
+            etFloor.setText(values[0] + "");
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
+    };
+
+    private void detectPressure() {
+        sensorManager.registerListener(sensorEventListener, barometerSensor, SensorManager.SENSOR_DELAY_UI);
+    }
 
     private void scan() {
         if (wifiManager.isWifiEnabled()) {

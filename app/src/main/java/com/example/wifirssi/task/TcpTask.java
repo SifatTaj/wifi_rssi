@@ -99,6 +99,23 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         return null;
     }
 
+    private int requestFloor(float airPressure) {
+        try {
+            Socket socket = new Socket(address, 5000);
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            String request = service + "/" + place + "/" + floor + "/" + airPressure;
+            Log.d("TCPRequest", "requestFloor: " + request);
+            oos.writeUTF(request);
+            oos.flush();
+            int floor = (int) ois.readObject();
+            return floor;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     @Override
     protected void onPreExecute() {
         if (service.equalsIgnoreCase("location")) {
@@ -117,6 +134,10 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         else if (service.equalsIgnoreCase("navigate")) {
             String navigation = params[0];
             requestNavigation(navigation);
+        }
+        else if (service.equalsIgnoreCase("detectFloor")) {
+            float airPressure = Float.parseFloat(params[0]);
+            requestFloor(airPressure);
         }
         return null;
     }
