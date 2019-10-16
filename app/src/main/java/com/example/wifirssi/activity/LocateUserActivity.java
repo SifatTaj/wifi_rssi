@@ -78,7 +78,11 @@ public class LocateUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 place = etPlace.getText().toString();
                 floor = Integer.parseInt(etFloor.getText().toString());
-                new TcpTask(place, floor,"loadmap").execute();
+                if (tcpSelected) {
+                    new TcpTask(place, floor, "loadmap").execute();
+                } else {
+                    new NdnTask(place, floor, "loadmap").execute();
+                }
             }
         });
 
@@ -88,7 +92,11 @@ public class LocateUserActivity extends AppCompatActivity {
                 place = etPlace.getText().toString();
                 floor = Integer.parseInt(etFloor.getText().toString());
                 String navigation = currentLocation + "_" + etDest.getText().toString();
-                new TcpTask(place, floor,"navigate").execute(navigation);
+                if (tcpSelected) {
+                    new TcpTask(place, floor,"navigate").execute(navigation);
+                } else {
+                    new NdnTask(place, floor,"navigate").execute(navigation);
+                }
             }
         });
     }
@@ -125,7 +133,7 @@ public class LocateUserActivity extends AppCompatActivity {
             if (tcpSelected) {
                 new TcpTask(place, floor, "location").execute(observedRssValue);
             } else {
-                new NdnTask().execute(observedRssValue);
+                new NdnTask(place, floor, "location").execute(observedRssValue);
             }
         }
     };

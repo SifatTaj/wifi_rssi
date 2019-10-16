@@ -35,87 +35,62 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
         this.floor = floor;
     }
 
-    private String requestLocation(String observedRSSValues) {
-
-        String request = service + "/" + place + "/" + floor + "/" + observedRSSValues;
-        Log.d("NDNRequest", "requestLocation: " + request);
-
-        try {
-            Face face = new Face();
-            ReceiveData receiveData = new ReceiveData();
-            Name name = new Name("/ips/" + request);
-            face.expressInterest(name, receiveData, receiveData);
-
-            while (receiveData.callbackCount < 1) {
-                face.processEvents();
-                Thread.sleep(5);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "Server Down";
-    }
-
-    private void requestMap() {
-        try {
-            Face face = new Face();
-            String request = service + "/" + place + "/" + floor;
-            ReceiveData receiveData = new ReceiveData();
-            Name name = new Name("/ips/" + request);
-            face.expressInterest(name, receiveData, receiveData);
-
-            while (receiveData.callbackCount < 1) {
-                face.processEvents();
-                Thread.sleep(5);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Path requestNavigation(String navigation) {
-        try {
-            Socket socket = new Socket(address, 5000);
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            String request = service + "/" + place + "/" + floor + "/" + navigation;
-            Log.d("TCPRequest", "requestMap: " + request);
-            oos.writeUTF(request);
-            oos.flush();
-            String json = (String) ois.readObject();
-            path = new Gson().fromJson(json, Path.class);
-            return path;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     @Override
     protected Void doInBackground(String... params) {
-        if (service.equalsIgnoreCase("location")) {
-            String observedRSSValue = params[0];
-            location = requestLocation(observedRSSValue);
+
+        try {
+            Face face = new Face();
+            ReceiveData receiveData = new ReceiveData();
+            String request = "";
+
+            if (service.equalsIgnoreCase("location")) {
+                String observedRSSValues = params[0];
+                request = service + "/" + place + "/" + floor + "/" + observedRSSValues;
+                Log.d("NDNRequest", "requestLocation: " + request);
+            }
+
+            else if (service.equalsIgnoreCase("loadmap")) {
+                request = service + "/" + place + "/" + floor;
+                Log.d("NDNRequest", "requestMap: " + request);
+            }
+
+            else if (service.equalsIgnoreCase("navigate")) {
+                String navigation = params[0];
+                request = service + "/" + place + "/" + floor + "/" + navigation;
+            }
+
+            Name name = new Name("/ips/" + request);
+            face.expressInterest(name, receiveData, receiveData);
+
+            while (receiveData.callbackCount < 1) {
+                face.processEvents();
+                Thread.sleep(5);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else if (service.equalsIgnoreCase("loadmap"))
-            requestMap();
-        else if (service.equalsIgnoreCase("navigate")) {
-            String navigation = params[0];
-            requestNavigation(navigation);
-        }
+
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
+        if (service.equalsIgnoreCase("location")) {
+            LocateUserActivity.tvLocation.setText(location);
+        }
 
+        else if (service.equalsIgnoreCase("loadmap")) {
+            LocateUserActivity.mapView.generateMap(floorLayout);
+        }
+
+        else if (service.equalsIgnoreCase("navigate")) {
+            LocateUserActivity.mapView.drawNavigation(path);
+        }
     }
 
     class ReceiveData implements OnData, OnTimeout {
-        public int callbackCount = 0;
+        int callbackCount = 0;
 
         @Override
         public void onData(Interest interest, Data data) {
