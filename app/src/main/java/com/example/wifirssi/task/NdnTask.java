@@ -78,6 +78,14 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         if (service.equalsIgnoreCase("location")) {
             LocateUserActivity.tvLocation.setText(location);
+            String[] locationCoordinates = location.split(" ");
+            try {
+                float x = (Float.parseFloat(locationCoordinates[0]));
+                float y = (Float.parseFloat(locationCoordinates[1]));
+                LocateUserActivity.mapView.setLocation(x, y);
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+            }
         }
 
         else if (service.equalsIgnoreCase("loadmap")) {

@@ -79,13 +79,14 @@ public class MapView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        float unit = getWidth() / ((float) width - 1) - 8;
+        float unit = getWidth() / ((float) width - 1);
+        unit = unit - (unit * .05f);
 
         canvas.save();
         canvas.translate(0, getHeight());
         canvas.scale(1, -1);
 
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(unit * .05f);
         for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
             canvas.drawLine(30 + (unit * pathNodes.get(i).getX()), 30 + (unit * pathNodes.get(i).getY()), 30 + (unit * pathNodes.get(i + 1).getX()), 30 + (unit * pathNodes.get(i + 1).getY()), paint);
         }
@@ -103,10 +104,10 @@ public class MapView extends View {
         if (walls != null) {
             for (int[] wall : walls) {
                 paint.setColor(Color.GRAY);
-                float top = 30 + (unit * wall[1]) - 50;
-                float left = 30 + (unit * wall[0]) - 50;
-                float right = left + 100;
-                float bottom = top + 100;
+                float top = 30 + (unit * wall[1]) - unit * .5f;
+                float left = 30 + (unit * wall[0]) - unit * .5f;
+                float right = left + unit;
+                float bottom = top + unit;
                 canvas.drawRect(left, top, right, bottom, paint);
             }
         }
