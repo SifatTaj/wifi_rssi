@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.wifirssi.activity.LocateUserActivity;
 import com.example.wifirssi.model.FloorLayout;
 import com.example.wifirssi.model.Node;
 import com.example.wifirssi.model.Path;
@@ -83,6 +84,7 @@ public class MapView extends View {
         unit = unit - (unit * .05f);
 
         float dotRadius = unit * .2f;
+        float padding = unit * .3f;
 
         canvas.save();
         canvas.translate(0, getHeight());
@@ -90,24 +92,24 @@ public class MapView extends View {
 
         paint.setStrokeWidth(unit * .05f);
         for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
-            canvas.drawLine(30 + (unit * pathNodes.get(i).getX()), 30 + (unit * pathNodes.get(i).getY()), 30 + (unit * pathNodes.get(i + 1).getX()), 30 + (unit * pathNodes.get(i + 1).getY()), paint);
+            canvas.drawLine(padding + (unit * pathNodes.get(i).getX()), padding + (unit * pathNodes.get(i).getY()), padding + (unit * pathNodes.get(i + 1).getX()), padding + (unit * pathNodes.get(i + 1).getY()), paint);
         }
 
         dotColor = Color.GRAY;
         for (int j = 0; j < height; j++)
             for (int i = 0; i < width; i++) {
                 paint.setColor(dotColor);
-                canvas.drawCircle(30 + (unit * i), 30 + (unit * j), dotRadius, paint);
+                canvas.drawCircle(padding + (unit * i), padding + (unit * j), dotRadius, paint);
             }
 
         paint.setColor(Color.GREEN);
-        canvas.drawCircle(30 + (unit * x), 30 + (unit * y), dotRadius, paint);
+        canvas.drawCircle(padding + (unit * x), padding + (unit * y), dotRadius, paint);
 
         if (walls != null) {
             for (int[] wall : walls) {
                 paint.setColor(Color.GRAY);
-                float top = 30 + (unit * wall[1]) - unit * .5f;
-                float left = 30 + (unit * wall[0]) - unit * .5f;
+                float top = padding + (unit * wall[1]) - unit * .5f;
+                float left = padding + (unit * wall[0]) - unit * .5f;
                 float right = left + unit;
                 float bottom = top + unit;
                 canvas.drawRect(left, top, right, bottom, paint);
