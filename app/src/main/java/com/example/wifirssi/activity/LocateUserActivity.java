@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wifirssi.constant.Service;
 import com.example.wifirssi.model.AccessPoint;
 
 import com.example.wifirssi.R;
@@ -36,20 +37,21 @@ public class LocateUserActivity extends AppCompatActivity {
     public static MapView mapView;
     Button btLocateUser, btLoadMap, btNavigate, btDetectFloor;
     public static TextView tvLocation, tvMapDescription;
-    EditText etPlace, etFloor, etDest;
+    public static EditText etPlace, etFloor, etDest;
     RadioGroup rgArchitecture;
     RadioButton rbChoice;
 
 
     Set<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
-    boolean tcpSelected = true;
+    boolean isTcpSelected = true;
+    boolean isDetectingFloor = false;
 
     SensorManager sensorManager;
     Sensor barometerSensor;
 
     String place;
-    public static String currentLocation = "1_1_3";
+    public static String currentLocation = "";
     public static int floor;
 
     @Override
@@ -88,10 +90,10 @@ public class LocateUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 place = etPlace.getText().toString();
                 floor = Integer.parseInt(etFloor.getText().toString());
-                if (tcpSelected) {
-                    new TcpTask(place, floor, "loadmap").execute();
+                if (isTcpSelected) {
+                    new TcpTask(place, floor, Service.LOAD_MAP).execute();
                 } else {
-                    new NdnTask(place, floor, "loadmap").execute();
+                    new NdnTask(place, floor, Service.LOAD_MAP).execute();
                 }
             }
         });
@@ -102,10 +104,10 @@ public class LocateUserActivity extends AppCompatActivity {
                 place = etPlace.getText().toString();
                 floor = Integer.parseInt(etFloor.getText().toString());
                 String navigation = currentLocation + "_" + etDest.getText().toString();
-                if (tcpSelected) {
-                    new TcpTask(place, floor,"navigate").execute(navigation);
+                if (isTcpSelected) {
+                    new TcpTask(place, floor, Service.NAVIGATE).execute(navigation);
                 } else {
-                    new NdnTask(place, floor,"navigate").execute(navigation);
+                    new NdnTask(place, floor, Service.NAVIGATE).execute(navigation);
                 }
             }
         });
@@ -113,6 +115,7 @@ public class LocateUserActivity extends AppCompatActivity {
         btDetectFloor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                place = etPlace.getText().toString();
                 detectPressure();
             }
         });
@@ -121,7 +124,7 @@ public class LocateUserActivity extends AppCompatActivity {
     public void selectArchitecture(View view) {
         int selectedRadioId = rgArchitecture.getCheckedRadioButtonId();
         rbChoice = findViewById(selectedRadioId);
-        tcpSelected = R.id.rbTcp == selectedRadioId;
+        isTcpSelected = R.id.rbTcp == selectedRadioId;
         Toast.makeText(this, rbChoice.getText().toString() + " is selected", Toast.LENGTH_SHORT).show();
     }
 
@@ -147,10 +150,10 @@ public class LocateUserActivity extends AppCompatActivity {
                 observedRssValue = "-44_-62_-73_-60_";
 
             Toast.makeText(getApplicationContext(), observedRssValue, Toast.LENGTH_SHORT).show();
-            if (tcpSelected) {
-                new TcpTask(place, floor, "location").execute(observedRssValue);
+            if (isTcpSelected) {
+                new TcpTask(place, floor, Service.LOCATE).execute(observedRssValue);
             } else {
-                new NdnTask(place, floor, "location").execute(observedRssValue);
+                new NdnTask(place, floor, Service.LOCATE).execute(observedRssValue);
             }
         }
     };
@@ -159,7 +162,15 @@ public class LocateUserActivity extends AppCompatActivity {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             float[] values = sensorEvent.values;
-            etFloor.setText(values[0] + "");
+            String airPressure = values[0] + "";
+            if (isDetectingFloor) {
+                if (isTcpSelected) {
+                    new TcpTask(place, floor, Service.DETECT_FLOOR).execute(airPressure);
+                } else {
+                    new NdnTask(place, floor, Service.DETECT_FLOOR).execute(airPressure);
+                }
+                isDetectingFloor = false;
+            }
         }
 
         @Override
@@ -169,6 +180,7 @@ public class LocateUserActivity extends AppCompatActivity {
     };
 
     private void detectPressure() {
+        isDetectingFloor = true;
         sensorManager.registerListener(sensorEventListener, barometerSensor, SensorManager.SENSOR_DELAY_UI);
     }
 

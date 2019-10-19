@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.wifirssi.activity.LocateUserActivity;
+import com.example.wifirssi.constant.Service;
+import com.example.wifirssi.model.Location;
 import com.example.wifirssi.model.Path;
 import com.google.gson.Gson;
 
@@ -16,25 +18,24 @@ import java.net.Socket;
 
 public class TcpTask extends AsyncTask<String, Void, Void> {
 
-    String place;
-    String service;
-    String location = "Waiting for response...";
-    String address = "192.168.0.112";
-    int floor;
-    FloorLayout floorLayout;
-    Path path;
+    private String place;
+    private Service service;
+    private String address = "192.168.0.112";
+    private int floor;
+    private int detectedFloor;
+    private FloorLayout floorLayout;
+    private Path path;
+    private Location location;
 
-    public TcpTask(String place, int floor, String service) {
+    public TcpTask(String place, int floor, Service service) {
         this.place = place;
         this.service = service;
         this.floor = floor;
     }
 
-    private String requestLocation(String observedRSSValues) {
+    private Location requestLocation(String observedRSSValues) {
 
         try {
-            String myLocation;
-
             Socket socket = new Socket(address, 5000);
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -45,8 +46,9 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             try {
                 oos.writeUTF(request);
                 oos.flush();
-                myLocation = ois.readUTF();
-                return myLocation;
+                String json = (String) ois.readObject();
+                location = new Gson().fromJson(json, Location.class);
+                return location;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,7 +60,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
             ioe.printStackTrace();
         }
 
-        return "Server Down";
+        return null;
     }
 
     private FloorLayout requestMap() {
@@ -118,26 +120,26 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        if (service.equalsIgnoreCase("location")) {
-            LocateUserActivity.tvLocation.setText(location);
+        if (service == Service.LOCATE) {
+            LocateUserActivity.tvLocation.setText("Waiting for response...");
         }
     }
 
     @Override
     protected Void doInBackground(String... params) {
-        if (service.equalsIgnoreCase("location")) {
+        if (service == Service.LOCATE) {
             String observedRSSValue = params[0];
             location = requestLocation(observedRSSValue);
         }
-        else if (service.equalsIgnoreCase("loadmap"))
+        else if (service == Service.LOAD_MAP)
             floorLayout = requestMap();
-        else if (service.equalsIgnoreCase("navigate")) {
+        else if (service == Service.NAVIGATE) {
             String navigation = params[0];
             requestNavigation(navigation);
         }
-        else if (service.equalsIgnoreCase("detectFloor")) {
+        else if (service == Service.DETECT_FLOOR) {
             float airPressure = Float.parseFloat(params[0]);
-            requestFloor(airPressure);
+            detectedFloor = requestFloor(airPressure);
         }
         return null;
     }
@@ -145,24 +147,26 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
 
-        if (service.equalsIgnoreCase("location")) {
-            LocateUserActivity.tvLocation.setText(location);
-            String[] locationCoordinates = location.split(" ");
-            try {
-                float x = (Float.parseFloat(locationCoordinates[0]));
-                float y = (Float.parseFloat(locationCoordinates[1]));
-                LocateUserActivity.mapView.setLocation(x, y);
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
+        if (service == Service.LOCATE) {
+            LocateUserActivity.tvLocation.setText(location.getLocation());
+            LocateUserActivity.mapView.setLocation(location.getX(), location.getY());
+            int x = Math.round(location.getX());
+            int y = Math.round(location.getY());
+            LocateUserActivity.currentLocation = x + "_" + y + "_" + floor;
         }
-        else if (service.equalsIgnoreCase("loadmap")) {
+
+        else if (service == Service.LOAD_MAP) {
             LocateUserActivity.mapView.generateMap(floorLayout);
             LocateUserActivity.tvMapDescription.setText("Place: " + floorLayout.getPlace() + "\nFloor: " + floorLayout.getFloor());
         }
 
-        else if (service.equalsIgnoreCase("navigate")) {
+        else if (service == Service.NAVIGATE) {
             LocateUserActivity.mapView.drawNavigation(path);
+        }
+
+        else if (service == Service.DETECT_FLOOR) {
+            LocateUserActivity.etFloor.setText(detectedFloor + "");
+            LocateUserActivity.floor = detectedFloor;
         }
     }
 }

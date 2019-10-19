@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.wifirssi.activity.LocateUserActivity;
+import com.example.wifirssi.constant.Service;
 import com.example.wifirssi.model.FloorLayout;
+import com.example.wifirssi.model.Location;
 import com.example.wifirssi.model.Path;
 import com.google.gson.Gson;
 
@@ -15,21 +17,18 @@ import net.named_data.jndn.Name;
 import net.named_data.jndn.OnData;
 import net.named_data.jndn.OnTimeout;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-
 public class NdnTask extends AsyncTask<String, Void, Void> {
 
-    String place;
-    String service;
-    String location = "Waiting for response...";
-    String address = "192.168.0.112";
-    int floor;
-    FloorLayout floorLayout;
-    Path path;
+    private String place;
+    private Service service;
+    private String prefix = "/ips/";
+    private int detectedFloor;
+    private int floor;
+    private FloorLayout floorLayout;
+    private Path path;
+    private Location location;
 
-    public NdnTask(String place, int floor, String service) {
+    public NdnTask(String place, int floor, Service service) {
         this.place = place;
         this.service = service;
         this.floor = floor;
@@ -39,27 +38,34 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... params) {
 
         try {
-            Face face = new Face();
+            Face face = new Face("192.168.0.112");
             ReceiveData receiveData = new ReceiveData();
             String request = "";
 
-            if (service.equalsIgnoreCase("location")) {
+            if (service == Service.LOCATE) {
                 String observedRSSValues = params[0];
                 request = service + "/" + place + "/" + floor + "/" + observedRSSValues;
                 Log.d("NDNRequest", "requestLocation: " + request);
             }
 
-            else if (service.equalsIgnoreCase("loadmap")) {
-                request = service + "/" + place + "/" + floor;
+            else if (service == Service.LOAD_MAP) {
+                request =  service + "/" + place + "/" + floor;
                 Log.d("NDNRequest", "requestMap: " + request);
             }
 
-            else if (service.equalsIgnoreCase("navigate")) {
+            else if (service == Service.NAVIGATE) {
                 String navigation = params[0];
                 request = service + "/" + place + "/" + floor + "/" + navigation;
+                Log.d("NDNRequest", "requestNavigation: " + request);
             }
 
-            Name name = new Name("/ips/" + request);
+            else if (service == Service.DETECT_FLOOR) {
+                float airPressure = Float.parseFloat(params[0]);
+                request = service + "/" + place + "/" + floor + "/" + airPressure;
+                Log.d("NDNRequest", "requestFloor: " + request);
+            }
+
+            Name name = new Name(prefix + request);
             face.expressInterest(name, receiveData, receiveData);
 
             while (receiveData.callbackCount < 1) {
@@ -76,24 +82,26 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        if (service.equalsIgnoreCase("location")) {
-            LocateUserActivity.tvLocation.setText(location);
-            String[] locationCoordinates = location.split(" ");
-            try {
-                float x = (Float.parseFloat(locationCoordinates[0]));
-                float y = (Float.parseFloat(locationCoordinates[1]));
-                LocateUserActivity.mapView.setLocation(x, y);
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
+        if (service == Service.LOCATE) {
+            LocateUserActivity.tvLocation.setText(location.getLocation());
+            LocateUserActivity.mapView.setLocation(location.getX(), location.getY());
+            int x = Math.round(location.getX());
+            int y = Math.round(location.getY());
+            LocateUserActivity.currentLocation = x + "_" + y + "_" + floor;
         }
 
-        else if (service.equalsIgnoreCase("loadmap")) {
+        else if (service == Service.LOAD_MAP) {
             LocateUserActivity.mapView.generateMap(floorLayout);
+            LocateUserActivity.tvMapDescription.setText("Place: " + floorLayout.getPlace() + "\nFloor: " + floorLayout.getFloor());
         }
 
-        else if (service.equalsIgnoreCase("navigate")) {
+        else if (service == Service.NAVIGATE) {
             LocateUserActivity.mapView.drawNavigation(path);
+        }
+
+        else if (service == Service.DETECT_FLOOR) {
+            LocateUserActivity.etFloor.setText(detectedFloor + "");
+            LocateUserActivity.floor = detectedFloor;
         }
     }
 
@@ -104,16 +112,25 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
         public void onData(Interest interest, Data data) {
             ++callbackCount;
 
-            if (service.equalsIgnoreCase("location")) {
-                location = data.getContent().toString();
+            if (service == Service.LOCATE) {
+                String json = data.getContent().toString();
+                location = new Gson().fromJson(json, Location.class);
             }
-            else if (service.equalsIgnoreCase("loadmap")) {
+
+            else if (service == Service.LOAD_MAP) {
                 String json = data.getContent().toString();
                 floorLayout = new Gson().fromJson(json, FloorLayout.class);
             }
-            else if (service.equalsIgnoreCase("navigate")) {
+
+            else if (service == Service.NAVIGATE) {
                 String json = data.getContent().toString();
                 path = new Gson().fromJson(json, Path.class);
+            }
+
+            else if (service == Service.DETECT_FLOOR) {
+                detectedFloor = Integer.parseInt(data.getContent().toString());
+                LocateUserActivity.etFloor.setText(detectedFloor + "");
+                LocateUserActivity.floor = detectedFloor;
             }
         }
 
