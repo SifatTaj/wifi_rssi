@@ -82,6 +82,8 @@ public class MapView extends View {
         float unit = getWidth() / ((float) width - 1);
         unit = unit - (unit * .05f);
 
+        float dotRadius = unit * .2f;
+
         canvas.save();
         canvas.translate(0, getHeight());
         canvas.scale(1, -1);
@@ -95,11 +97,11 @@ public class MapView extends View {
         for (int j = 0; j < height; j++)
             for (int i = 0; i < width; i++) {
                 paint.setColor(dotColor);
-                canvas.drawCircle(30 + (unit * i), 30 + (unit * j), 20, paint);
+                canvas.drawCircle(30 + (unit * i), 30 + (unit * j), dotRadius, paint);
             }
 
         paint.setColor(Color.GREEN);
-        canvas.drawCircle(30 + (unit * x), 30 + (unit * y), 20, paint);
+        canvas.drawCircle(30 + (unit * x), 30 + (unit * y), dotRadius, paint);
 
         if (walls != null) {
             for (int[] wall : walls) {
