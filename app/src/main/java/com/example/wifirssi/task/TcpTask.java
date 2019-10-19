@@ -20,7 +20,8 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
     private String place;
     private Service service;
-    private String address = "192.168.0.112";
+    private String address;
+    private int port;
     private int floor;
     private int detectedFloor;
     private FloorLayout floorLayout;
@@ -31,12 +32,14 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
         this.place = place;
         this.service = service;
         this.floor = floor;
+        this.address = LocateUserActivity.tcpServerAddress;
+        this.port = LocateUserActivity.tcpServerPort;
     }
 
     private Location requestLocation(String observedRSSValues) {
 
         try {
-            Socket socket = new Socket(address, 5000);
+            Socket socket = new Socket(address, port);
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 

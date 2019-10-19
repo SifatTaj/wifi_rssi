@@ -21,7 +21,8 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
 
     private String place;
     private Service service;
-    private String prefix = "/ips/";
+    private String prefix;
+    private String nfdAddress;
     private int detectedFloor;
     private int floor;
     private FloorLayout floorLayout;
@@ -32,13 +33,15 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
         this.place = place;
         this.service = service;
         this.floor = floor;
+        this.prefix = LocateUserActivity.ndnPrefix;
+        this.nfdAddress = LocateUserActivity.nfdAddress;
     }
 
     @Override
     protected Void doInBackground(String... params) {
 
         try {
-            Face face = new Face("192.168.0.112");
+            Face face = new Face(nfdAddress);
             ReceiveData receiveData = new ReceiveData();
             String request = "";
 

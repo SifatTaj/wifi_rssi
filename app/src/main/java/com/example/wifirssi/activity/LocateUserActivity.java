@@ -13,6 +13,8 @@ import android.hardware.SensorManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +55,29 @@ public class LocateUserActivity extends AppCompatActivity {
     String place;
     public static String currentLocation = "";
     public static int floor;
+
+    public static String tcpServerAddress = "192.168.0.112";
+    public static int tcpServerPort = 5000;
+    public static String ndnPrefix = "/ips/";
+    public static String nfdAddress = "192.168.0.112";
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_locate_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.btSettingsActivity:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
