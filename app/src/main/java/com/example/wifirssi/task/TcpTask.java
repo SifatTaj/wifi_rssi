@@ -27,6 +27,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
     private FloorLayout floorLayout;
     private Path path;
     private Location location;
+    private long start;
 
     public TcpTask(String place, int floor, Service service) {
         this.place = place;
@@ -123,9 +124,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        if (service == Service.LOCATE) {
-            LocateUserActivity.tvLocation.setText("Waiting for response...");
-        }
+        start = System.currentTimeMillis();
     }
 
     @Override
@@ -149,6 +148,9 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+
+        double time = System.currentTimeMillis() - start;
+        LocateUserActivity.tvTime.setText(time + "ms");
 
         if (service == Service.LOCATE) {
             LocateUserActivity.tvLocation.setText(location.getLocation());

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:layout_marginBottom="10dp"
             android:id="@+id/etTcpServerPort"
             android:layout_width="match_parent"

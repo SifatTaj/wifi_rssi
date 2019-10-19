@@ -38,7 +38,7 @@ public class LocateUserActivity extends AppCompatActivity {
 
     public static MapView mapView;
     Button btLocateUser, btLoadMap, btNavigate, btDetectFloor;
-    public static TextView tvLocation, tvMapDescription;
+    public static TextView tvLocation, tvMapDescription, tvTime;
     public static EditText etPlace, etFloor, etDest;
     RadioGroup rgArchitecture;
     RadioButton rbChoice;
@@ -95,6 +95,7 @@ public class LocateUserActivity extends AppCompatActivity {
         btNavigate = findViewById(R.id.btNavigate);
         tvLocation = findViewById(R.id.tvLocation);
         tvMapDescription = findViewById(R.id.tvMapDescription);
+        tvTime = findViewById(R.id.tvTime);
         mapView = findViewById(R.id.mapView);
         etPlace = findViewById(R.id.etPlace);
         etFloor = findViewById(R.id.etFloor);

@@ -28,6 +28,7 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
     private FloorLayout floorLayout;
     private Path path;
     private Location location;
+    private long start;
 
     public NdnTask(String place, int floor, Service service) {
         this.place = place;
@@ -38,10 +39,15 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        start = System.currentTimeMillis();
+    }
+
+    @Override
     protected Void doInBackground(String... params) {
 
         try {
-            Face face = new Face(nfdAddress);
+            Face face = nfdAddress.equalsIgnoreCase("") ? new Face() : new Face(nfdAddress);
             ReceiveData receiveData = new ReceiveData();
             String request = "";
 
@@ -73,7 +79,6 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
 
             while (receiveData.callbackCount < 1) {
                 face.processEvents();
-                Thread.sleep(5);
             }
 
         } catch (Exception e) {
@@ -85,6 +90,10 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+
+        double time = System.currentTimeMillis() - start;
+        LocateUserActivity.tvTime.setText(time + "ms");
+
         if (service == Service.LOCATE) {
             LocateUserActivity.tvLocation.setText(location.getLocation());
             LocateUserActivity.mapView.setLocation(location.getX(), location.getY());
