@@ -6,57 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".activity.LocateUserActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp">
+
+        <LinearLayout
+            android:paddingHorizontal="5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Enter place and floor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:weightSum="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:paddingRight="10dp"
+                    android:layout_weight="3"
+                    android:id="@+id/etPlace"
+                    android:text="idb"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/etFloor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:inputType="numberDecimal"
+                    android:text="1" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvMapDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Map Description" />
+
+
+            <com.example.wifirssi.view.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="1400dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <LinearLayout
-        android:paddingHorizontal="5dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Enter place and floor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:weightSum="4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:paddingRight="10dp"
-                android:layout_weight="3"
-                android:id="@+id/etPlace"
-                android:text="home"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/etFloor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:inputType="numberDecimal"
-                android:text="3" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvMapDescription"
-            android:text="Map Description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <com.example.wifirssi.view.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="350dp" />
-
-        <TextView
             android:id="@+id/tvLocation"
-            android:text="User location will appear here"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="User location will appear here" />
 
         <LinearLayout
             android:weightSum="5"
@@ -84,15 +100,6 @@
             android:id="@+id/tvTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <RadioGroup
             android:id="@+id/rgArchitecture"

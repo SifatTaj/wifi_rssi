@@ -56,7 +56,7 @@ public class LocateUserActivity extends AppCompatActivity {
     public static String currentLocation = "";
     public static int floor;
 
-    public static String tcpServerAddress = "192.168.0.112";
+    public static String tcpServerAddress = "192.168.0.120";
     public static int tcpServerPort = 5000;
     public static String ndnPrefix = "/ips/";
     public static String nfdAddress = "192.168.0.112";

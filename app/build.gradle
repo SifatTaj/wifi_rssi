@@ -27,5 +27,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation files('/Users/taj/wifi_rssi/lib/jndn-0.22.jar')
+    implementation files('/Users/sifattaj/Projects/wifi_rssi/lib/jndn-0.22.jar')
 }
