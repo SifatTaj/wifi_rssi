@@ -90,17 +90,12 @@ public class MapView extends View {
         canvas.translate(0, getHeight());
         canvas.scale(1, -1);
 
-        paint.setStrokeWidth(unit * .05f);
-        for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
-            canvas.drawLine(padding + (unit * pathNodes.get(i).getX()), padding + (unit * pathNodes.get(i).getY()), padding + (unit * pathNodes.get(i + 1).getX()), padding + (unit * pathNodes.get(i + 1).getY()), paint);
-        }
-
-        dotColor = Color.GRAY;
-        for (int j = 0; j < height; j++)
-            for (int i = 0; i < width; i++) {
-                paint.setColor(dotColor);
-                canvas.drawCircle(padding + (unit * i), padding + (unit * j), dotRadius, paint);
-            }
+//        dotColor = Color.GRAY;
+//        for (int j = 0; j < height; j++)
+//            for (int i = 0; i < width; i++) {
+//                paint.setColor(dotColor);
+//                canvas.drawCircle(padding + (unit * i), padding + (unit * j), dotRadius, paint);
+//            }
 
         paint.setColor(Color.GREEN);
         canvas.drawCircle(padding + (unit * x), padding + (unit * y), dotRadius, paint);
@@ -114,6 +109,12 @@ public class MapView extends View {
                 float bottom = top + unit;
                 canvas.drawRect(left, top, right, bottom, paint);
             }
+        }
+
+        paint.setStrokeWidth(unit * .07f);
+        paint.setColor(Color.CYAN);
+        for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
+            canvas.drawLine(padding + (unit * pathNodes.get(i).getX()), padding + (unit * pathNodes.get(i).getY()), padding + (unit * pathNodes.get(i + 1).getX()), padding + (unit * pathNodes.get(i + 1).getY()), paint);
         }
 
         canvas.restore();

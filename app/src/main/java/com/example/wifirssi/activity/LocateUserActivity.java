@@ -53,7 +53,7 @@ public class LocateUserActivity extends AppCompatActivity {
     Sensor barometerSensor;
 
     String place;
-    public static String currentLocation = "";
+    public static String currentLocation = "1_1_1";
     public static int floor;
 
     public static String tcpServerAddress = "192.168.0.120";
