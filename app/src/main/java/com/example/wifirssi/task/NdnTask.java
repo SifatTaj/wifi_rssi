@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.wifirssi.activity.LocateUserActivity;
+import com.example.wifirssi.activity.SettingsActivity;
 import com.example.wifirssi.constant.Service;
 import com.example.wifirssi.model.FloorLayout;
 import com.example.wifirssi.model.Location;
@@ -75,7 +76,9 @@ public class NdnTask extends AsyncTask<String, Void, Void> {
             }
 
             Name name = new Name(prefix + request);
-            face.expressInterest(name, receiveData, receiveData);
+            Interest interest = new Interest();
+            interest.setName(name);
+            face.expressInterest(interest, receiveData, receiveData);
 
             while (receiveData.callbackCount < 1) {
                 face.processEvents();

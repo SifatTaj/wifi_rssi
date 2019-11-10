@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.wifirssi.R;
 
@@ -37,6 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
                 LocateUserActivity.tcpServerAddress = etTcpServerAddress.getText().toString();
                 LocateUserActivity.ndnPrefix = etNdnPrefix.getText().toString();
                 LocateUserActivity.nfdAddress = etNfdAddress.getText().toString();
+                Toast.makeText(getApplicationContext(), "Settings applied", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -48,6 +49,7 @@ public class LocateUserActivity extends AppCompatActivity {
     WifiManager wifiManager;
     boolean isTcpSelected = true;
     boolean isDetectingFloor = false;
+    public static boolean allowNdnCache = true;
 
     SensorManager sensorManager;
     Sensor barometerSensor;
@@ -59,7 +61,7 @@ public class LocateUserActivity extends AppCompatActivity {
     public static String tcpServerAddress = "192.168.0.120";
     public static int tcpServerPort = 5000;
     public static String ndnPrefix = "/ips/";
-    public static String nfdAddress = "192.168.0.112";
+    public static String nfdAddress = "192.168.0.120";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
