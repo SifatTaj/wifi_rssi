@@ -10,10 +10,9 @@ import android.view.View;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.wifirssi.activity.LocateUserActivity;
 import com.example.wifirssi.model.FloorLayout;
-import com.example.wifirssi.model.Node;
 import com.example.wifirssi.model.Path;
+import com.example.wifirssi.model.Waypoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class MapView extends View {
     int x1 = 99;
     int y1 = 99;
     int dotColor;
-    List<Node> pathNodes = new ArrayList<>();
+    List<Waypoint> waypoints = new ArrayList<>();
 
     public MapView(Context context) {
         super(context);
@@ -67,7 +66,7 @@ public class MapView extends View {
     }
 
     public void drawNavigation(Path path) {
-        pathNodes = path.getNodes();
+        waypoints = path.waypoints;
         postInvalidate();
     }
 
@@ -113,8 +112,8 @@ public class MapView extends View {
 
         paint.setStrokeWidth(unit * .07f);
         paint.setColor(Color.CYAN);
-        for (int i = 0 ; i < pathNodes.size() - 1 ; ++i) {
-            canvas.drawLine(padding + (unit * pathNodes.get(i).getX()), padding + (unit * pathNodes.get(i).getY()), padding + (unit * pathNodes.get(i + 1).getX()), padding + (unit * pathNodes.get(i + 1).getY()), paint);
+        for (int i = 0; i < waypoints.size() - 1 ; ++i) {
+            canvas.drawLine(padding + (unit * waypoints.get(i).x), padding + (unit * waypoints.get(i).y), padding + (unit * waypoints.get(i + 1).x), padding + (unit * waypoints.get(i + 1).y), paint);
         }
 
         canvas.restore();
