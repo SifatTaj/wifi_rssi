@@ -1,5 +1,7 @@
 package com.example.wifirssi.model;
 
+import java.util.List;
+
 public class FloorLayout {
     private String place;
     private int floor;
@@ -7,8 +9,9 @@ public class FloorLayout {
     private int width;
     private int exitx;
     private int exity;
+    private List<AccessPoint> aps;
 
-    public FloorLayout(String place, int floor, int height, int width, int exitx, int exity, int[][] walls) {
+    public FloorLayout(String place, int floor, int height, int width, int exitx, int exity, int[][] walls, List<AccessPoint> aps) {
         this.place = place;
         this.floor = floor;
         this.height = height;
@@ -16,6 +19,7 @@ public class FloorLayout {
         this.exitx = exitx;
         this.exity = exity;
         this.walls = walls;
+        this.aps = aps;
     }
 
     private final int[][] walls;
@@ -46,5 +50,9 @@ public class FloorLayout {
 
     public int getExity() {
         return exity;
+    }
+
+    public List<AccessPoint> getAps() {
+        return aps;
     }
 }
