@@ -45,11 +45,10 @@ public class LocateUserActivity extends AppCompatActivity {
     RadioButton rbChoice;
 
 
-    Set<AccessPoint> selectedAccessPoints;
+    public static List<AccessPoint> selectedAccessPoints;
     WifiManager wifiManager;
     boolean isTcpSelected = true;
     boolean isDetectingFloor = false;
-    public static boolean allowNdnCache = true;
 
     SensorManager sensorManager;
     Sensor barometerSensor;
@@ -87,7 +86,7 @@ public class LocateUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_locate_user);
         setTitle("Locate User");
 
-        selectedAccessPoints = MainActivity.selectedAccessPoints;
+//        selectedAccessPoints = MainActivity.selectedAccessPoints;
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         barometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);

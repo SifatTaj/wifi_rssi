@@ -162,6 +162,7 @@ public class TcpTask extends AsyncTask<String, Void, Void> {
 
         else if (service == Service.LOAD_MAP) {
             LocateUserActivity.mapView.generateMap(floorLayout);
+            LocateUserActivity.selectedAccessPoints = floorLayout.getAps();
             LocateUserActivity.tvMapDescription.setText("Place: " + floorLayout.getPlace() + "\nFloor: " + floorLayout.getFloor());
         }
 
