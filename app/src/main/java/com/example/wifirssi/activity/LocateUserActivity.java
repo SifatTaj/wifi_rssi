@@ -32,6 +32,7 @@ import com.example.wifirssi.task.NdnTask;
 import com.example.wifirssi.task.TcpTask;
 import com.example.wifirssi.view.MapView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -189,7 +190,9 @@ public class LocateUserActivity extends AppCompatActivity {
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             float[] values = sensorEvent.values;
-            String airPressure = values[0] + "";
+            DecimalFormat df = new DecimalFormat("#.#");
+            double sensorData = Double.valueOf(df.format(values[0]));
+            String airPressure = sensorData + "";
             if (isDetectingFloor) {
                 if (isTcpSelected) {
                     new TcpTask(place, floor, Service.DETECT_FLOOR).execute(airPressure);

@@ -20,7 +20,7 @@ import java.util.List;
 public class MapView extends View {
 
     Paint paint;
-    int scale = 2;
+    int scale = 1;
     int height = 0;
     int width = 0;
     int[][] walls;
@@ -82,7 +82,7 @@ public class MapView extends View {
         float unit = getWidth() / ((float) width - 1);
         unit = unit - (unit * .05f);
 
-        float dotRadius = unit * .2f;
+        float dotRadius = unit * .5f;
         float padding = unit * .3f;
 
         canvas.save();
@@ -96,9 +96,6 @@ public class MapView extends View {
 //                canvas.drawCircle(padding + (unit * i), padding + (unit * j), dotRadius, paint);
 //            }
 
-        paint.setColor(Color.GREEN);
-        canvas.drawCircle(padding + (unit * x), padding + (unit * y), dotRadius, paint);
-
         if (walls != null) {
             for (int[] wall : walls) {
                 paint.setColor(Color.GRAY);
@@ -110,11 +107,17 @@ public class MapView extends View {
             }
         }
 
-        paint.setStrokeWidth(unit * .07f);
+        paint.setStrokeWidth(unit * .4f);
         paint.setColor(Color.CYAN);
         for (int i = 0; i < waypoints.size() - 1 ; ++i) {
             canvas.drawLine(padding + (unit * waypoints.get(i).x), padding + (unit * waypoints.get(i).y), padding + (unit * waypoints.get(i + 1).x), padding + (unit * waypoints.get(i + 1).y), paint);
         }
+
+        paint.setColor(Color.GREEN);
+        canvas.drawCircle(padding + (unit * x), padding + (unit * y), dotRadius, paint);
+
+        paint.setAlpha(50);
+        canvas.drawCircle(padding + (unit * x), padding + (unit * y), dotRadius * 3, paint);
 
         canvas.restore();
     }
