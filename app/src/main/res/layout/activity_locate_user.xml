@@ -6,67 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".activity.LocateUserActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp">
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter place and floor" />
 
         <LinearLayout
-            android:paddingHorizontal="5dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="4">
 
-            <TextView
-                android:text="Enter place and floor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:weightSum="4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:paddingRight="10dp"
-                    android:layout_weight="3"
-                    android:id="@+id/etPlace"
-                    android:text="idb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/etFloor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:inputType="numberDecimal"
-                    android:text="1" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvMapDescription"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/etPlace"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Map Description" />
+                android:layout_weight="3"
+                android:paddingRight="10dp"
+                android:text="idb" />
 
-
-            <com.example.wifirssi.view.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="1400dp" />
+            <EditText
+                android:id="@+id/etFloor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:inputType="numberDecimal"
+                android:text="1" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/tvMapDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Map Description" />
+
+
+        <ScrollView
+            android:layout_marginBottom="170dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginBottom="170dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.example.wifirssi.view.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1400dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvLocation"
@@ -75,24 +82,24 @@
             android:text="User location will appear here" />
 
         <LinearLayout
-            android:weightSum="5"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
             <EditText
-                android:text="27_119_1"
                 android:id="@+id/etDest"
-                android:layout_weight="4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="27_119_1" />
 
             <Button
                 android:id="@+id/btNavigate"
-                android:layout_weight="1"
-                android:text="navigate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="navigate" />
 
         </LinearLayout>
 
@@ -103,54 +110,54 @@
 
         <RadioGroup
             android:id="@+id/rgArchitecture"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rbTcp"
-                android:checked="true"
-                android:paddingRight="20dp"
-                android:text="TCP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="selectArchitecture" />
+                android:checked="true"
+                android:onClick="selectArchitecture"
+                android:paddingRight="20dp"
+                android:text="TCP" />
 
             <RadioButton
                 android:id="@+id/rbNdn"
-                android:text="NDN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="selectArchitecture" />
+                android:onClick="selectArchitecture"
+                android:text="NDN" />
 
         </RadioGroup>
 
         <LinearLayout
-            android:weightSum="3"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <Button
-                android:layout_weight="1"
                 android:id="@+id/btLocateUser"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Locate"/>
+                android:layout_weight="1"
+                android:text="Locate" />
 
             <Button
-                android:layout_weight="1"
                 android:id="@+id/btLoadMap"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Load Map"/>
+                android:layout_weight="1"
+                android:text="Load Map" />
 
             <Button
-                android:layout_weight="1"
                 android:id="@+id/btDetectFloor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Detect Floor"/>
+                android:layout_weight="1"
+                android:text="Detect Floor" />
 
         </LinearLayout>
 
